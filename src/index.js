@@ -1,3 +1,7 @@
+// import babel-polyfill helpers to
+// avoid regeneratorRuntime errors
+import "babel-polyfill"
+
 import express from "express"
 
 import renderer from "./helpers/renderer"
