@@ -7049,10 +7049,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var app = (0, _express2.default)();
 var port = process.env.PORT || 3000;
 
+app.use(_express2.default.static("public"));
 app.get("/", function (req, res) {
     var content = (0, _server.renderToString)(_react2.default.createElement(_Home2.default, null));
 
-    res.send(content);
+    var html = "\n        <html>\n          <head></head>\n          <body>\n            <div id=\"root\">" + content + "</div>\n            <script src=\"bundle.js\"></script>\n          </body>\n        </html>\n    ";
+
+    res.send(html);
 });
 
 app.listen(port, function () {
@@ -22445,7 +22448,7 @@ module.exports = camelize;
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _react = __webpack_require__(16);
@@ -22455,11 +22458,22 @@ var _react2 = _interopRequireDefault(_react);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Home = function Home() {
-    return _react2.default.createElement(
-        "div",
-        null,
-        "I'm a stateless Home Component"
-    );
+  return _react2.default.createElement(
+    "div",
+    null,
+    _react2.default.createElement(
+      "div",
+      null,
+      "I'm a stateless Home Component"
+    ),
+    _react2.default.createElement(
+      "button",
+      { onClick: function onClick() {
+          return console.log("Hi there!");
+        } },
+      "Click me!"
+    )
+  );
 };
 
 exports.default = Home;

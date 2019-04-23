@@ -1,7 +1,10 @@
 import React from "react";
 
 const Home = () => (
-    <div>I'm a stateless Home Component</div>
+    <div>
+      <div>I'm a stateless Home Component</div>
+      <button onClick={() => console.log("Hi there!")}>Click me!</button>
+    </div>
 );
 
 export default Home;
