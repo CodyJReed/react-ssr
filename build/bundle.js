@@ -84,6 +84,10 @@ var _renderer = __webpack_require__(5);
 
 var _renderer2 = _interopRequireDefault(_renderer);
 
+var _createStore = __webpack_require__(8);
+
+var _createStore2 = _interopRequireDefault(_createStore);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var app = (0, _express2.default)();
@@ -91,8 +95,9 @@ var port = process.env.PORT || 3000;
 
 app.use(_express2.default.static("public"));
 app.get("*", function (req, res) {
+    var store = (0, _createStore2.default)();
 
-    res.send((0, _renderer2.default)(req));
+    res.send((0, _renderer2.default)(store, req));
 });
 
 app.listen(port, function () {
@@ -168,17 +173,23 @@ var _server = __webpack_require__(3);
 
 var _reactRouterDom = __webpack_require__(6);
 
+var _reactRedux = __webpack_require__(11);
+
 var _Routes = __webpack_require__(7);
 
 var _Routes2 = _interopRequireDefault(_Routes);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = function (req) {
+exports.default = function (store, req) {
   var content = (0, _server.renderToString)(_react2.default.createElement(
-    _reactRouterDom.StaticRouter,
-    { location: req.path, context: {} },
-    _react2.default.createElement(_Routes2.default, null)
+    _reactRedux.Provider,
+    { store: store },
+    _react2.default.createElement(
+      _reactRouterDom.StaticRouter,
+      { location: req.path, context: {} },
+      _react2.default.createElement(_Routes2.default, null)
+    )
   ));
 
   return "\n        <html>\n          <head></head>\n          <body>\n            <div id=\"root\">" + content + "</div>\n            <script src=\"bundle.js\"></script>\n          </body>\n        </html>\n    ";
@@ -220,6 +231,52 @@ exports.default = function () {
         _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: "/", component: _Home2.default })
     );
 };
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _redux = __webpack_require__(9);
+
+var _reduxThunk = __webpack_require__(10);
+
+var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// Create a seperate store without a Provider
+// to prevent pre-rendering state errors
+// export for use within index.js route handling 
+exports.default = function () {
+    var store = (0, _redux.createStore)(reducers, {}, (0, _redux.applyMiddleware)(_reduxThunk2.default));
+
+    return store;
+};
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports) {
+
+module.exports = require("redux");
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports) {
+
+module.exports = require("redux-thunk");
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-redux");
 
 /***/ })
 /******/ ]);
