@@ -1,7 +1,7 @@
 import React from "react"
 
 import Home from "./components/Home"
-import UsersList from "./components/UsersList"
+import UsersList, {loadData} from "./components/UsersList"
 
 export default [
     {
@@ -12,6 +12,7 @@ export default [
     {
         path: "/users",
         component: UsersList,
+        loadData
     }
 ]
     
