@@ -11,17 +11,19 @@ import renderer from "./helpers/renderer"
 import createStore from "./helpers/createStore"
 
 const app = express()
+
 app.use("/api", proxy("http://react-ssr-api.herokuapp.com", {
     proxyReqOptDecorator(opts) {
-        opts.header["x-forward-host"] = "localhost:3000"
+        opts.headers["x-forward-host"] = "localhost:3000"
         return opts
     }
 }))
+
 const port = process.env.PORT || 3000
 
 app.use(express.static("public"));
 app.get("*", (req, res) =>{
-    const store = createStore()
+    const store = createStore(req)
 
     const promises = matchRoutes(Routes, req.path).map( ({route}) => route.loadData ? route.loadData(store) : null)
     
