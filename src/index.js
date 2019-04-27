@@ -14,14 +14,13 @@ const app = express()
 
 app.use("/api", proxy("http://react-ssr-api.herokuapp.com", {
     proxyReqOptDecorator(opts) {
-        opts.headers["x-forward-host"] = "localhost:3000"
+        opts.headers["x-forwarded-host"] = "localhost:3000"
         return opts
     }
 }))
 
-const port = process.env.PORT || 3000
-
 app.use(express.static("public"));
+
 app.get("*", (req, res) =>{
     const store = createStore(req)
 
@@ -32,6 +31,8 @@ app.get("*", (req, res) =>{
     })
 
 })
+
+const port = process.env.PORT || 3000
 
 app.listen(port, () => {
     console.log(`Listening on port ${port}`)
