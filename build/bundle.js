@@ -308,6 +308,12 @@ app.get("*", function (req, res) {
     var promises = (0, _reactRouterConfig.matchRoutes)(_Routes2.default, req.path).map(function (_ref) {
         var route = _ref.route;
         return route.loadData ? route.loadData(store) : null;
+    }).map(function (promise) {
+        if (promise) {
+            return new Promise(function (resolve, reject) {
+                promise.then(resolve).catch(resolve);
+            });
+        }
     });
 
     Promise.all(promises).then(function () {
