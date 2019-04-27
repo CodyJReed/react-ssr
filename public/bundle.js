@@ -39685,6 +39685,10 @@ var _App = __webpack_require__(484);
 
 var _App2 = _interopRequireDefault(_App);
 
+var _NotFoundPage = __webpack_require__(487);
+
+var _NotFoundPage2 = _interopRequireDefault(_NotFoundPage);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = [_extends({}, _App2.default, {
@@ -39694,7 +39698,7 @@ exports.default = [_extends({}, _App2.default, {
         exact: true
     }), _extends({
         path: "/users"
-    }, _UsersListPage2.default)]
+    }, _UsersListPage2.default), _extends({}, _NotFoundPage2.default)]
 })];
 
 /***/ }),
@@ -39972,6 +39976,40 @@ exports.default = function () {
 };
 
 var _actions = __webpack_require__(180);
+
+/***/ }),
+/* 487 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _react = __webpack_require__(8);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var NotFoundPage = function NotFoundPage(_ref) {
+    var _ref$staticContext = _ref.staticContext,
+        staticContext = _ref$staticContext === undefined ? {} : _ref$staticContext;
+
+    staticContext.notFound = true;
+
+    return _react2.default.createElement(
+        "h1",
+        null,
+        "Ooops, route not found"
+    );
+};
+
+exports.default = {
+    component: NotFoundPage
+};
 
 /***/ })
 /******/ ]);
