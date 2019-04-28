@@ -325,7 +325,7 @@ app.get("*", function (req, res) {
     Promise.all(promises).then(function () {
         var context = {};
         var content = (0, _renderer2.default)(store, req, context);
-        console.log(context);
+
         if (context.url) {
             return res.redirect(context.url);
         }
